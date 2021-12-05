@@ -93,7 +93,8 @@ async function findById(scheme_id) { // EXERCISE B
       const scheme_steps = await db("schemes as sc")
       .leftJoin("steps as st", "sc.scheme_id", "st.scheme_id")
       .select("sc.scheme_id", "sc.scheme_name", "st.step_id", "st.step_number","st.instructions")
-      .where("sc.scheme_id", scheme_id);
+      .where("sc.scheme_id", scheme_id)
+      .orderBy("st.step_id", "asc");
 
       const raw_steps = scheme_steps.filter(element =>{
         return element.step_id !== null;
@@ -137,12 +138,15 @@ async function findSteps(scheme_id) { // EXERCISE C
       ]
   */
   
-      return await db("schemes as sc")
+      const array_of_steps =  await db("schemes as sc")
   .leftJoin("steps as st", "sc.scheme_id", "st.scheme_id")
   .select("sc.scheme_name", "st.step_id", "st.step_number","st.instructions")
-  .where("sc.scheme_id", scheme_id);
-    
+  .where("sc.scheme_id", scheme_id)
+  .orderBy("st.step_id", "asc");
 
+  const steps = array_of_steps.filter(element => element.step_id !== null);
+    
+      return steps;
 }
 
 async function add(scheme) { // EXERCISE D
