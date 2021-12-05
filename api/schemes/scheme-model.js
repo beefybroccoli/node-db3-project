@@ -106,6 +106,9 @@ async function findById(scheme_id) { // EXERCISE B
         }
       ); 
 
+
+      console.log("scheme_steps = ", scheme_steps);
+
       const result = {"scheme_id": scheme_steps[0].scheme_id, "scheme_name":scheme_steps[0].scheme_name, "steps":steps }
 
       // console.log("steps = ", steps);
