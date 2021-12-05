@@ -17,8 +17,8 @@ async function find() { // EXERCISE A
     2A- When you have a grasp on the query go ahead and build it in Knex.
     Return from this function the resulting dataset.
   */
-  return await db("steps as st")
-    .leftJoin("schemes as sc", "st.scheme_id", "sc.scheme_id")
+  return await db("schemes as sc")
+    .leftJoin("steps as st", "st.scheme_id", "sc.scheme_id")
     .select("sc.scheme_id as scheme_id", "sc.scheme_name as scheme_name")
     .groupBy("sc.scheme_id")
     .count("st.step_id as number_of_steps");
@@ -94,7 +94,7 @@ async function findById(scheme_id) { // EXERCISE B
       .leftJoin("steps as st", "sc.scheme_id", "st.scheme_id")
       .select("sc.scheme_id", "sc.scheme_name", "st.step_id", "st.step_number","st.instructions")
       .where("sc.scheme_id", scheme_id)
-      .orderBy("st.step_id", "asc");
+      .orderBy("st.step_number", "asc");
 
       const raw_steps = scheme_steps.filter(element =>{
         return element.step_id !== null;
@@ -142,7 +142,7 @@ async function findSteps(scheme_id) { // EXERCISE C
   .leftJoin("steps as st", "sc.scheme_id", "st.scheme_id")
   .select("sc.scheme_name", "st.step_id", "st.step_number","st.instructions")
   .where("sc.scheme_id", scheme_id)
-  .orderBy("st.step_id", "asc");
+  .orderBy("st.step_number", "asc");
 
   const steps = array_of_steps.filter(element => element.step_id !== null);
     
