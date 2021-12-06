@@ -12,7 +12,7 @@ const checkSchemeId = (req, res, next) => {
 
   modelSchemes.findById(req.params.scheme_id)
     .then(result=>{
-      console.log("result = ", result);
+      // console.log("result = ", result);
       next();
     })
     .catch(err=>{
@@ -29,9 +29,9 @@ const checkSchemeId = (req, res, next) => {
   }
 */
 const validateScheme = (req, res, next) => {
-  
   const {scheme_name} = req.body;
-  if(!scheme_name || scheme_name.trim() === "" || typeof(scheme_name) !== "string"){
+  if(scheme_name === null || scheme_name === undefined || scheme_name.trim() === "" || typeof(scheme_name) !== "string"){
+    console.log("fail validateScheme");
     res.status(400).json({messsage:"invalid scheme_name"});
   }else{
     next();  

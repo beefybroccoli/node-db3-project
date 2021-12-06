@@ -108,7 +108,7 @@ async function findById(scheme_id) { // EXERCISE B
       ); 
 
 
-      console.log("scheme_steps = ", scheme_steps);
+      // console.log("scheme_steps = ", scheme_steps);
 
       const result = {"scheme_id": scheme_steps[0].scheme_id, "scheme_name":scheme_steps[0].scheme_name, "steps":steps }
 
@@ -138,15 +138,15 @@ async function findSteps(scheme_id) { // EXERCISE C
       ]
   */
   
-      const array_of_steps =  await db("schemes as sc")
-  .leftJoin("steps as st", "sc.scheme_id", "st.scheme_id")
-  .select("sc.scheme_name", "st.step_id", "st.step_number","st.instructions")
-  .where("sc.scheme_id", scheme_id)
-  .orderBy("st.step_number", "asc");
+  const array_of_steps =  await db("schemes as sc")
+    .leftJoin("steps as st", "sc.scheme_id", "st.scheme_id")
+    .select("sc.scheme_name", "st.step_id", "st.step_number","st.instructions")
+    .where("sc.scheme_id", scheme_id)
+    .orderBy("st.step_number", "asc");
 
-  const steps = array_of_steps.filter(element => element.step_id !== null);
-    
-      return steps;
+  const steps = array_of_steps.filter(element => element.step_id !== null);  
+  
+  return steps;
 }
 
 async function add(scheme) { // EXERCISE D
