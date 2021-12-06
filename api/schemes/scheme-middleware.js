@@ -30,9 +30,8 @@ const checkSchemeId = (req, res, next) => {
 */
 const validateScheme = (req, res, next) => {
   const {scheme_name} = req.body;
-  if(scheme_name === null || scheme_name === undefined || scheme_name.trim() === "" || typeof(scheme_name) !== "string"){
-    console.log("fail validateScheme");
-    res.status(400).json({messsage:"invalid scheme_name"});
+  if(scheme_name === null || scheme_name === undefined || typeof(scheme_name) !== "string" || scheme_name.trim() === "" ){
+    res.status(400).json({message:"invalid scheme_name"});
   }else{
     next();  
   }
@@ -50,8 +49,8 @@ const validateScheme = (req, res, next) => {
 const validateStep = (req, res, next) => {
   
   const {instructions, step_number} = req.body;
-  if(!instructions || instructions.trim() === "" || typeof(instructions) !== "string" || typeof(Number(step_number)) !== "number" || Number(step_number) < 1){
-    res.status(400).json({messsage:"invalid step"});
+  if(instructions === undefined || instructions === null || typeof(instructions) !== "string" || instructions.trim() === "" ||  typeof(step_number) !== "number" || Number(step_number) < 1){
+    res.status(400).json({message:"invalid step"});
   }else{
     next();  
   }

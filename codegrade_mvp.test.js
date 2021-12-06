@@ -151,6 +151,7 @@ describe('server.js', () => {
     test('[22] responds with 400 and proper message on missing or bad `scheme_name`', async () => {
       let res = await request(server).post('/api/schemes').send({ scheme_name: null })
       expect(res.status).toBe(400)
+      console.log("res.body = ", res.body);
       expect(res.body).toHaveProperty('message', 'invalid scheme_name')
       res = await request(server).post('/api/schemes').send({})
       expect(res.status).toBe(400)
