@@ -164,7 +164,8 @@ async function addStep(scheme_id, step) { // EXERCISE E
     and resolves to _all the steps_ belonging to the given `scheme_id`,
     including the newly created one.
   */
- return await db('steps').insert({...step, scheme_id});
+ const result =  await db('steps').insert({...step, scheme_id});
+ return await db("steps").where("scheme_id", scheme_id).orderBy("step_number", "asc");
 }
 
 module.exports = {
